@@ -1,6 +1,6 @@
 <!--- # ManipulationNet: Benchmarking Real-World Robotic Manipulation at Scale -->
 
-![](docs/images/mnet_logo_white.png)
+![](docs/images/logo.png)
 ![](docs/images/overview.png)
 
 ## Overview
