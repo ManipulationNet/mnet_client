@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="037_scissors">
+    <link name="object_037_scissors_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.084"/>
+            <inertia ixx="6.547690732728333e-08" ixy="-1.55990736093375e-08" ixz="-2.697240122223767e-10" iyy="2.1833666561207752e-08" iyz="-2.9500190747279163e-10" izz="8.630114236312979e-08" />
+        </inertial>
+    </link>
+</robot>

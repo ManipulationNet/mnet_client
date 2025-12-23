@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="006_mustard_bottle">
+    <link name="object_006_mustard_bottle_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.612"/>
+            <inertia ixx="1.4859756535385384e-06" ixy="7.689094812745239e-08" ixz="-5.036635764930315e-09" iyy="1.6353801746584831e-06" iyz="-7.1481871065832466e-09" izz="4.2887666467042074e-07" />
+        </inertial>
+    </link>
+</robot>

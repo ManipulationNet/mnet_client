@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="011_banana">
+    <link name="object_011_banana_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.062"/>
+            <inertia ixx="3.7423008271279656e-07" ixy="-1.1054582842229844e-07" ixz="2.639520859590032e-09" iyy="7.731843496426493e-08" iyz="-2.226874719779407e-09" izz="4.259474766688384e-07" />
+        </inertial>
+    </link>
+</robot>

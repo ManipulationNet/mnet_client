@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="040_large_marker">
+    <link name="object_040_large_marker_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.014"/>
+            <inertia ixx="3.091257815716955e-08" ixy="6.207650229019563e-10" ixz="-1.631268351077696e-12" iyy="1.0731689943190216e-09" iyz="-1.636804172146961e-11" izz="3.092629424482797e-08" />
+        </inertial>
+        <contact>
+            <lateral_friction value="0.8"/>   <!-- sliding (Coulomb) -->
+            <rolling_friction value="2.0"/>   <!-- resists rolling -->
+            <spinning_friction value="1.5"/>  <!-- resists spinning in place -->
+            <restitution value="0.0"/>        <!-- bounciness (0..1) -->
+            <!-- optional contact model tuning -->
+            <contact_stiffness value="10000"/>
+            <contact_damping   value="50"/>
+        </contact>
+    </link>
+</robot>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="025_mug">
+    <link name="object_025_mug_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.104"/>
+            <inertia ixx="1.1817715537688381e-07" ixy="1.1817715537688381e-07" ixz="-3.261979676397179e-09" iyy="1.3396034471645397e-07" iyz="-2.9249157142585582e-09" izz="1.714033312969554e-07" />
+        </inertial>
+    </link>
+</robot>

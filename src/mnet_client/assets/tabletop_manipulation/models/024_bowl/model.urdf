@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="024_bowl">
+    <link name="object_024_bowl_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.128"/>
+            <inertia ixx="7.686232983422854e-08" ixy="1.2084270194006145e-09" ixz="-3.1594129172662666e-11" iyy="7.514588229138845e-08" iyz="1.137834991033003e-09" izz="1.2824075881344215e-07" />
+        </inertial>
+    </link>
+</robot>

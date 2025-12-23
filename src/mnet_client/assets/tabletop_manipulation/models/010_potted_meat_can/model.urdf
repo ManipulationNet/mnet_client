@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="010_potted_meat_can">
+    <link name="object_010_potted_meat_can_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.366"/>
+            <inertia ixx="2.493389342561637e-07" ixy="-9.840858925910237e-09" ixz="-5.325776567155344e-10" iyy="4.275289395444433e-07" iyz="1.1078977992328735e-09" izz="3.223796283635839e-07" />
+        </inertial>
+    </link>
+</robot>

@@ -1,0 +1,230 @@
+{
+  "task1": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Get the Pudding box."
+  },
+  "task2": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Push the Sugar box."
+  },
+  "task3": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Get the Sugar box."
+  },
+  "task4": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Push the Scissors."
+  },
+  "task5": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Push the Large marker."
+  },
+  "task6": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Get the Orange."
+  },
+  "task7": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Pick up the Scissors."
+  },
+  "task8": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Pick up the Sugar box."
+  },
+  "task9": {
+    "level": "easy",
+    "layout": "scene_1.npz",
+    "instruction": "Pick up the Orange."
+  },
+  "task10": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Get the Scissors."
+  },
+  "task11": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Pick up the Bowl."
+  },
+  "task12": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Get the Mustard bottle."
+  },
+  "task13": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Pick up the Flat screwdriver."
+  },
+  "task14": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Pick up the Mustard bottle."
+  },
+  "task15": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Push the Mustard bottle."
+  },
+  "task16": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Pick up the Scissors."
+  },
+  "task17": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Get the Flat screwdriver."
+  },
+  "task18": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Push the Plate."
+  },
+  "task19": {
+    "level": "easy",
+    "layout": "scene_2.npz",
+    "instruction": "Get the Plate."
+  },
+  "task98": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Knock over the Plastic object."
+  },
+  "task99": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Remove the Red fruit."
+  },
+  "task100": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Remove the Metal container."
+  },
+  "task101": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Push the Red tableware."
+  },
+  "task102": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Pick up the Tableware."
+  },
+  "task103": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Push the Yellow bottle."
+  },
+  "task104": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Push the Flat screwdriver."
+  },
+  "task105": {
+    "level": "medium",
+    "layout": "scene_11.npz",
+    "instruction": "Pick up the Red container."
+  },
+  "task106": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Push the Brown object."
+  },
+  "task107": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Pick up the Paper package."
+  },
+  "task108": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Push the Scissors."
+  },
+  "task109": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Pick up the Dinner plate."
+  },
+  "task110": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Push the Fruit."
+  },
+  "task111": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Knock over the Brown box."
+  },
+  "task112": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Push the Red metal plate."
+  },
+  "task113": {
+    "level": "medium",
+    "layout": "scene_12.npz",
+    "instruction": "Remove the Hand tool."
+  },
+  "task167": {
+    "level": "hard",
+    "layout": "scene_21.npz",
+    "instruction": "Relocate the Red apple onto the Dinner plate."
+  },
+  "task173": {
+    "level": "hard",
+    "layout": "scene_22.npz",
+    "instruction": "Put the Orange object in the Metal bowl."
+  },
+  "task182": {
+    "level": "hard",
+    "layout": "scene_23.npz",
+    "instruction": "Place the Plastic object upright."
+  },
+
+  "task191": {
+    "level": "hard",
+    "layout": "scene_24.npz",
+    "instruction": "Place the Paper package upright."
+  },
+
+  "task200": {
+    "level": "hard",
+    "layout": "scene_25.npz",
+    "instruction": "Move the Flat screwdriver into the Red dining bowl."
+  },
+
+  "task211": {
+    "level": "hard",
+    "layout": "scene_26.npz",
+    "instruction": "Put the Red apple next to the Plastic object."
+  },
+  "task217": {
+    "level": "hard",
+    "layout": "scene_27.npz",
+    "instruction": "Bring the Jell-O box into the Red metal bowl."
+  },
+  "task226": {
+    "level": "hard",
+    "layout": "scene_28.npz",
+    "instruction": "Place the Regtangular box on the Red metal plate."
+  },
+  "task233": {
+    "level": "hard",
+    "layout": "scene_29.npz",
+    "instruction": "Stack the Fruit on top of the Blue object."
+  },
+  "task242": {
+    "level": "hard",
+    "layout": "scene_30.npz",
+    "instruction": "Put the Black marker onto the Plate."
+  }
+}

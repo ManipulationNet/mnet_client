@@ -118,7 +118,7 @@ def resize_seg(arr, h, w):
 
 class MnetSceneReplica:
     def __init__(
-        self, package_path, cam_K, W, H, det, tag_id, corners, R_cw_cv, t_cw_cv
+        self, package_path, task_name, cam_K, W, H, det, tag_id, corners, R_cw_cv, t_cw_cv
     ):
         self.pb = p.connect(p.DIRECT)
         self.cam_K = cam_K
@@ -138,7 +138,7 @@ class MnetSceneReplica:
             "src",
             "mnet_client",
             "assets",
-            "grasping_in_clutter",
+            task_name,
             "models",
         )
         self.scene_path = os.path.join(
@@ -146,7 +146,7 @@ class MnetSceneReplica:
             "src",
             "mnet_client",
             "assets",
-            "grasping_in_clutter",
+            task_name,
             "scenes",
         )
         self.near = CAMERA_NEAR

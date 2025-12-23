@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="004_sugar_box">
+    <link name="object_004_sugar_box_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.48"/>
+            <inertia ixx="2.0098475880086097e-06" ixy="-1.1763142618619035e-08" ixz="5.974292270735944e-08" iyy="1.6858032146613526e-06" iyz="-2.033647697297609e-08" izz="5.058980875216352e-07" />
+        </inertial>
+    </link>
+</robot>

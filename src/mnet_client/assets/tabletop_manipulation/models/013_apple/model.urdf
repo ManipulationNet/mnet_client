@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="013_apple">
+    <link name="object_013_apple_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.068"/>
+            <inertia ixx='1.507269658382916e-07' ixy='2.4676297097388035e-10' ixz='4.1997054651494696e-10' iyy='1.5318340266758008e-07' iyz='-5.195513634167131e-10' izz='1.5251114473635457e-07'/>
+        </inertial>
+    </link>
+</robot>

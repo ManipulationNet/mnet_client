@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="008_pudding_box">
+    <link name="object_008_pudding_box_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.184"/>
+            <inertia ixx="2.770934651883371e-07" ixy="-5.0119591775940255e-08" ixz="-6.639481550976534e-09" iyy="3.454847669052301e-07" iyz="-2.095889769237774e-09" izz="5.508963336800262e-07" />
+        </inertial>
+    </link>
+</robot>

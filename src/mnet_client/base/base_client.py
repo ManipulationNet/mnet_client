@@ -34,11 +34,11 @@ except ImportError as e:
 PACKAGE_NAME = "mnet_client"
 SERVER_IP = "3.21.8.9"
 SERVER_PORT = 50716
-AVAILABLE_TASKS = ["peg_in_hole", "block_arrangement", "grasping_in_clutter"]
-INSTRUCTION_ENABLED_TASKS = ["block_arrangement", "grasping_in_clutter"]
-OVERLAY_ENABLED_TASKS = ["grasping_in_clutter"]
-AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "grasping_in_clutter"]
-APRILTAG_ENABLED_TASKS = ["grasping_in_clutter"]
+AVAILABLE_TASKS = ["peg_in_hole", "block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
+INSTRUCTION_ENABLED_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
+OVERLAY_ENABLED_TASKS = ["grasping_in_clutter", "tabletop_manipulation"]
+AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
+APRILTAG_ENABLED_TASKS = OVERLAY_ENABLED_TASKS
 
 
 def get_package_path(package_name):
@@ -172,6 +172,7 @@ class BaseClient(ABC):
         self.corners = None
         self.R_cw_cv = None
         self.t_cw_cv = None
+        self.scene_render = None
 
         try:
             self.cam_K, self.cam_width, self.cam_height = self.get_camera_info()
@@ -460,6 +461,15 @@ class BaseClient(ABC):
         )
         return cv_image
 
+    def render_overlay_image_based_on_scene_id(self, scene_id):
+        if self.scene_render is not None:
+            self.scene_render.load_scene(scene_id)
+            rendered_scene = self.scene_render.render_scene_image()
+            rendered_scene_with_axis = self.scene_render.draw_apriltag_frame(rendered_scene)
+            return rendered_scene_with_axis
+        else:
+            return None
+            
     def overlay_rgba_on_bgr(self, bg_bgr, fg_rgba):
         """
         Overlay an RGBA image (foreground) onto a BGR image (background) and return the resulting BGR image

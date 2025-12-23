@@ -46,7 +46,7 @@ class LocalTestClient(BaseClient):
 
         # Initialize scoring details
         task_name = input(
-            "Choose the test task among {peg_in_hole, block_arrangement, grasping_in_clutter} for evaluation: "
+            f"Choose the test task among {AVAILABLE_TASKS} for evaluation: "
         )  # For local testing, we need the user to input the task name
         if task_name not in AVAILABLE_TASKS:
             self.logger.error(f"Invalid task name: {task_name}")
@@ -282,10 +282,12 @@ class LocalTestClient(BaseClient):
                     else None
                 )
 
+
         elif self.task_name in ["grasping_in_clutter"]:
             self.instruction_enabled = True
-            scene_render = MnetSceneReplica(
+            self.scene_render = MnetSceneReplica(
                 self.package_path,
+                self.task_name,
                 self.cam_K,
                 self.cam_width,
                 self.cam_height,
@@ -329,12 +331,72 @@ class LocalTestClient(BaseClient):
 
                 self.language_instructions.append("")
                 scene_id = task["layout"]
-                scene_render.load_scene(scene_id)
-                rendered_scene = scene_render.render_scene_image()
-                rendered_scene_with_axis = scene_render.draw_apriltag_frame(
-                    rendered_scene
-                )
+                rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
                 self.vision_instructions.append(rendered_scene_with_axis)
+
+
+        elif self.task_name in ["tabletop_manipulation"]:
+            self.instruction_enabled = True
+            self.scene_render = MnetSceneReplica(self.package_path, self.task_name, self.cam_K, self.cam_width, self.cam_height, self.det, self.tag_id, self.corners, self.R_cw_cv, self.t_cw_cv)
+            if os.path.exists(task_metadata_file_path):
+                with open(task_metadata_file_path, "r") as f:
+                    self.task_metadata = json.load(f)
+            else:
+                self.get_logger().error(
+                    f"Task metadata file not found: {task_metadata_file_path}"
+                )
+                exit()
+            
+            def get_layouts_by_level(tasks_dict, level):
+                layouts = set()
+                for task_key, task_info in tasks_dict.items():
+                    if task_info.get('level') == level:
+                        layouts.add(task_info.get('layout'))
+                
+                return sorted(list(layouts))
+            
+            easy_layouts = get_layouts_by_level(self.task_metadata, "easy")
+            medium_layouts = get_layouts_by_level(self.task_metadata, "medium")
+            hard_layouts = get_layouts_by_level(self.task_metadata, "hard")
+
+            def get_instructions_by_layout(tasks_dict, layout):
+                instructions = []
+                for task_key, task_info in tasks_dict.items():
+                    if task_info.get('layout') == layout:
+                        instructions.append(task_info.get('instruction'))
+                return instructions
+
+
+            for idx in range(len(self.scoring_details_list)):
+                if (idx//5) in [0, 1] and (idx%5)==0:
+                    scene_id = easy_layouts.pop()
+                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
+                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
+                    for _ in range(5):
+                        self.language_instructions.append(available_instructions.pop())
+                        self.vision_instructions.append(
+                            rendered_scene_with_axis
+                        )
+
+                if (idx//5) in [2, 3] and (idx%5)==0:
+                    scene_id = medium_layouts.pop()
+                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
+                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
+                    for _ in range(5):
+                        self.language_instructions.append(available_instructions.pop())
+                        self.vision_instructions.append(
+                            rendered_scene_with_axis
+                        )
+
+                elif idx in range(20, 30):
+                    scene_id = hard_layouts.pop()
+                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
+                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
+                    self.language_instructions.append(available_instructions.pop())
+                    self.vision_instructions.append(
+                        rendered_scene_with_axis
+                    )
+
 
     def camera_callback(self, msg: Image) -> None:
         """

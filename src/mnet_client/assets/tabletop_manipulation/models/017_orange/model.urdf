@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="017_orange">
+    <link name="object_017_orange_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.047"/>
+            <inertia ixx='1.0929448739337456e-07' ixy='-3.7680162105317293e-10' ixz='7.754849787300674e-10' iyy='1.0668012119156086e-07' iyz='-3.2224600252856557e-10' izz='1.0766814786501892e-07' />
+        </inertial>
+    </link>
+</robot>

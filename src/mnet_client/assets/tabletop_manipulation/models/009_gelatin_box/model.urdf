@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="009_gelatin_box">
+    <link name="object_009_gelatin_box_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.096"/>
+            <inertia ixx="1.1693648118832194e-07" ixy="7.60618044507347e-09" ixz="2.3426748539195366e-10" iyy="8.59077582913193e-08" iyz="-4.500521240218712e-10" izz="1.8071731434169978e-07" />
+        </inertial>
+
+        <contact>
+            <lateral_friction value="0.01"/>   <!-- sliding (Coulomb) -->
+            <rolling_friction value="0.01"/>   <!-- resists rolling -->
+            <spinning_friction value="0.01"/>  <!-- resists spinning in place -->
+
+        </contact>
+    </link>
+</robot>

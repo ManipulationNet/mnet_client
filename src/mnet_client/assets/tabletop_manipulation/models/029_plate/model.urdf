@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="029_plate">
+    <link name="object_029_plate_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.279"/>
+            <inertia ixx='2.642923235910926e-07' ixy='-8.407127946745567e-10' ixz='-1.3320588748086037e-09' iyy='2.6551093339463614e-07' iyz='-1.9884929467985345e-09' izz='5.195127464853478e-07'/>
+        </inertial>
+    </link>
+</robot>

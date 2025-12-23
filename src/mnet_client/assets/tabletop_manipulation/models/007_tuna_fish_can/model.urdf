@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ASCII'?>
+<robot name="007_tuna_fish_can">
+    <link name="object_007_tuna_fish_can_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+            <material name="texture">
+                <color rgba="1.0 1.0 1.0 1.0" />
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="textured_simple.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>   
+        <inertial>
+            <mass value="0.176"/>
+            <inertia ixx="7.939606354206973e-08" ixy="3.0048647698520316e-11" ixz="1.3007989216319309e-11" iyy="7.947371317296094e-08" iyz="7.839079087181541e-12" izz="1.3921006422852177e-07" />
+        </inertial>
+    </link>
+</robot>
