@@ -35,7 +35,7 @@ except ImportError as e:
 
 class LocalTestClient(BaseClient):
     """
-    Local test client for the ManipulationNet competition
+    Local test client for the ManipulationNet
     """
 
     def __init__(self):
@@ -282,7 +282,6 @@ class LocalTestClient(BaseClient):
                     else None
                 )
 
-
         elif self.task_name in ["grasping_in_clutter"]:
             self.instruction_enabled = True
             self.scene_render = MnetSceneReplica(
@@ -315,7 +314,9 @@ class LocalTestClient(BaseClient):
                 k: v for k, v in self.task_metadata.items() if v.get("level") == "easy"
             }
             medium_level_tasks = {
-                k: v for k, v in self.task_metadata.items() if v.get("level") == "medium"
+                k: v
+                for k, v in self.task_metadata.items()
+                if v.get("level") == "medium"
             }
             hard_level_tasks = {
                 k: v for k, v in self.task_metadata.items() if v.get("level") == "hard"
@@ -331,13 +332,25 @@ class LocalTestClient(BaseClient):
 
                 self.language_instructions.append("")
                 scene_id = task["layout"]
-                rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
+                rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(
+                    scene_id
+                )
                 self.vision_instructions.append(rendered_scene_with_axis)
-
 
         elif self.task_name in ["tabletop_manipulation"]:
             self.instruction_enabled = True
-            self.scene_render = MnetSceneReplica(self.package_path, self.task_name, self.cam_K, self.cam_width, self.cam_height, self.det, self.tag_id, self.corners, self.R_cw_cv, self.t_cw_cv)
+            self.scene_render = MnetSceneReplica(
+                self.package_path,
+                self.task_name,
+                self.cam_K,
+                self.cam_width,
+                self.cam_height,
+                self.det,
+                self.tag_id,
+                self.corners,
+                self.R_cw_cv,
+                self.t_cw_cv,
+            )
             if os.path.exists(task_metadata_file_path):
                 with open(task_metadata_file_path, "r") as f:
                     self.task_metadata = json.load(f)
@@ -346,15 +359,15 @@ class LocalTestClient(BaseClient):
                     f"Task metadata file not found: {task_metadata_file_path}"
                 )
                 exit()
-            
+
             def get_layouts_by_level(tasks_dict, level):
                 layouts = set()
                 for task_key, task_info in tasks_dict.items():
-                    if task_info.get('level') == level:
-                        layouts.add(task_info.get('layout'))
-                
+                    if task_info.get("level") == level:
+                        layouts.add(task_info.get("layout"))
+
                 return sorted(list(layouts))
-            
+
             easy_layouts = get_layouts_by_level(self.task_metadata, "easy")
             medium_layouts = get_layouts_by_level(self.task_metadata, "medium")
             hard_layouts = get_layouts_by_level(self.task_metadata, "hard")
@@ -449,7 +462,6 @@ class LocalTestClient(BaseClient):
                 else:
                     return selected_instruction
 
-
             for idx in range(len(self.scoring_details_list)):
                 if (idx // 5) in [0, 1] and (idx % 5) == 0:
                     scene_id = easy_layouts.pop()
@@ -502,7 +514,6 @@ class LocalTestClient(BaseClient):
                     )
                     self.language_instructions.append(language_instruction)
                     self.vision_instructions.append(rendered_scene_with_axis)
-
 
     def camera_callback(self, msg: Image) -> None:
         """
