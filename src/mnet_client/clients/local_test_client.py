@@ -359,43 +359,149 @@ class LocalTestClient(BaseClient):
             medium_layouts = get_layouts_by_level(self.task_metadata, "medium")
             hard_layouts = get_layouts_by_level(self.task_metadata, "hard")
 
-            def get_instructions_by_layout(tasks_dict, layout):
-                instructions = []
-                for task_key, task_info in tasks_dict.items():
-                    if task_info.get('layout') == layout:
-                        instructions.append(task_info.get('instruction'))
-                return instructions
+            # unordered skill distribution for each level
+            easy_level_skills = [
+                "pick up",
+                "pick up",
+                "pick up",
+                "pick up",
+                "get",
+                "get",
+                "get",
+                "push",
+                "push",
+                "push",
+            ]
+            medium_level_skills = [
+                "pick up",
+                "pick up",
+                "pick up",
+                "get",
+                "push",
+                "push",
+                "knock over",
+                "move away",
+                "remove",
+                "remove",
+            ]
+            hard_level_skills = [
+                "next to",
+                "next to",
+                "next to",
+                "next to",
+                "into",
+                "into",
+                "stack",
+                "stack",
+                "stack",
+                "upright",
+            ]
+
+            def get_instruction_by_layout_level_and_skill(
+                tasks_dict, layout=None, level=None, skill=None, with_layout=False
+            ):
+                if skill is None and level is None:
+                    matching_keys = [
+                        key
+                        for key, task_info in tasks_dict.items()
+                        if task_info.get("layout") == layout
+                    ]
+                elif skill is None and level is not None:
+                    matching_keys = [
+                        key
+                        for key, task_info in tasks_dict.items()
+                        if task_info.get("layout") == layout
+                        and task_info.get("level") == level
+                    ]
+                elif skill is not None and level is None:
+                    matching_keys = [
+                        key
+                        for key, task_info in tasks_dict.items()
+                        if task_info.get("layout") == layout
+                        and task_info.get("skill") == skill
+                    ]
+                elif layout is None and level is not None and skill is not None:
+                    matching_keys = [
+                        key
+                        for key, task_info in tasks_dict.items()
+                        if task_info.get("level") == level
+                        and task_info.get("skill") == skill
+                    ]
+                else:
+                    matching_keys = [
+                        key
+                        for key, task_info in tasks_dict.items()
+                        if task_info.get("layout") == layout
+                        and task_info.get("level") == level
+                        and task_info.get("skill") == skill
+                    ]
+                if not matching_keys:
+                    return None
+
+                selected_key = random.choice(matching_keys)
+                selected_instruction = tasks_dict[selected_key].get("instruction")
+                if layout is None:
+                    layout = tasks_dict[selected_key].get("layout")
+                del tasks_dict[selected_key]
+
+                if with_layout:
+                    return selected_instruction, layout
+                else:
+                    return selected_instruction
 
 
             for idx in range(len(self.scoring_details_list)):
-                if (idx//5) in [0, 1] and (idx%5)==0:
+                if (idx // 5) in [0, 1] and (idx % 5) == 0:
                     scene_id = easy_layouts.pop()
-                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
-                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
+                    rendered_scene_with_axis = (
+                        self.render_overlay_image_based_on_scene_id(scene_id)
+                    )
                     for _ in range(5):
-                        self.language_instructions.append(available_instructions.pop())
-                        self.vision_instructions.append(
-                            rendered_scene_with_axis
+                        self.language_instructions.append(
+                            get_instruction_by_layout_level_and_skill(
+                                self.task_metadata,
+                                scene_id,
+                                skill=easy_level_skills.pop(
+                                    random.randint(0, len(easy_level_skills) - 1)
+                                ),
+                            )
                         )
+                        self.vision_instructions.append(rendered_scene_with_axis)
 
-                if (idx//5) in [2, 3] and (idx%5)==0:
+                if (idx // 5) in [2, 3] and (idx % 5) == 0:
                     scene_id = medium_layouts.pop()
-                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
-                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
+                    rendered_scene_with_axis = (
+                        self.render_overlay_image_based_on_scene_id(scene_id)
+                    )
                     for _ in range(5):
-                        self.language_instructions.append(available_instructions.pop())
-                        self.vision_instructions.append(
-                            rendered_scene_with_axis
+                        self.language_instructions.append(
+                            get_instruction_by_layout_level_and_skill(
+                                self.task_metadata,
+                                scene_id,
+                                skill=medium_level_skills.pop(
+                                    random.randint(0, len(medium_level_skills) - 1)
+                                ),
+                            )
                         )
+                        self.vision_instructions.append(rendered_scene_with_axis)
 
                 elif idx in range(20, 30):
-                    scene_id = hard_layouts.pop()
-                    rendered_scene_with_axis = self.render_overlay_image_based_on_scene_id(scene_id)
-                    available_instructions = get_instructions_by_layout(self.task_metadata, scene_id)
-                    self.language_instructions.append(available_instructions.pop())
-                    self.vision_instructions.append(
-                        rendered_scene_with_axis
+                    skill_type = hard_level_skills.pop(
+                        random.randint(0, len(hard_level_skills) - 1)
                     )
+                    language_instruction, scene_id = (
+                        get_instruction_by_layout_level_and_skill(
+                            self.task_metadata,
+                            level="hard",
+                            skill=skill_type,
+                            with_layout=True,
+                        )
+                    )
+                    rendered_scene_with_axis = (
+                        self.render_overlay_image_based_on_scene_id(scene_id)
+                    )
+                    self.language_instructions.append(language_instruction)
+                    self.vision_instructions.append(rendered_scene_with_axis)
 
 
     def camera_callback(self, msg: Image) -> None:
