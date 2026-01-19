@@ -24,6 +24,14 @@ try:
         OVERLAY_ENABLED_TASKS,
         AUTONOMOUS_ONLY_TASKS,
         APRILTAG_ENABLED_TASKS,
+        ROS_TOPIC_CONTINUOUS_ASSISTANCE,
+        ROS_TOPIC_DISCRETE_ASSISTANCE,
+        ROS_TOPIC_CONNECTION_STATUS,
+        ROS_TOPIC_ONGOING_TASK,
+        ROS_TOPIC_LANGUAGE_INSTRUCTION,
+        ROS_TOPIC_VISION_INSTRUCTION,
+        ROS_TOPIC_TASK_SKIPPED,
+        ROS_TOPIC_TASK_FINISHED
     )
     from mnet_client.tasks import detect_apriltag, MnetSceneReplica
 
@@ -130,32 +138,32 @@ class LocalTestClient(BaseClient):
 
         # Initialize execution status services
         self.task_finished_service = rospy.Service(
-            "mnet_client/current_task_finished", Trigger, self.handle_task_finished
+            ROS_TOPIC_TASK_FINISHED, Trigger, self.handle_task_finished
         )
         self.task_skipped_service = rospy.Service(
-            "mnet_client/current_task_skipped", Trigger, self.handle_task_skipped
+            ROS_TOPIC_TASK_SKIPPED, Trigger, self.handle_task_skipped
         )
         self.camera_fps = self.calibrated_fps
 
         # Initialize human in the loop services
         if self.autonomy_level == 1 or self.autonomy_level == 0:
             self.discrete_assistance_service = rospy.Service(
-                "mnet_client/discrete_assistance_update",
+                ROS_TOPIC_DISCRETE_ASSISTANCE,
                 Trigger,
                 self.handle_discrete_assistance,
             )
             self.continuous_assistance_service = rospy.Service(
-                "mnet_client/continuous_assistance_update",
+                ROS_TOPIC_CONTINUOUS_ASSISTANCE,
                 Trigger,
                 self.handle_continuous_assistance,
             )
 
         # Initialize connection status publisher
         self.connection_status_pub = rospy.Publisher(
-            "mnet_client/connection_status", Bool, queue_size=10
+            ROS_TOPIC_CONNECTION_STATUS, Bool, queue_size=10
         )
         self.task_status_pub = rospy.Publisher(
-            "mnet_client/ongoing_task", String, queue_size=10
+            ROS_TOPIC_ONGOING_TASK, String, queue_size=10
         )
         self.connection_status = False
         self.rate = rospy.Rate(100)
@@ -192,6 +200,21 @@ class LocalTestClient(BaseClient):
             f"{self.task_name}",
             "metadata.json",
         )
+
+        if self.task_name in ["cable_management"]:
+            self.logger.info("Overwriting ROS topic for cable_management task: 'current_language_instruction' -> 'board_configuration'")
+            global ROS_TOPIC_LANGUAGE_INSTRUCTION
+            ROS_TOPIC_LANGUAGE_INSTRUCTION = "/mnet_client/board_configuration"
+            from mnet_client.tasks import get_offset_coordinates, ALL_BASES
+            offset_coordinates, overall_actual_offsets = get_offset_coordinates()
+
+            for idx in range(len(self.scoring_details_list)):
+                pub_task = ALL_BASES[idx]
+                pub_task["test_coordinates"] = offset_coordinates[idx]
+                pub_task["coordinate_offsets"] = overall_actual_offsets[idx]
+
+                self.language_instructions.append(str(pub_task))
+                self.vision_instructions.append(None)
 
         if self.task_name in ["block_arrangement"]:
             self.instruction_enabled = True
@@ -615,10 +638,10 @@ class LocalTestClient(BaseClient):
 
         if self.instruction_enabled:
             self.language_pub = rospy.Publisher(
-                "/mnet_client/current_language_instruction", String, queue_size=1
+                ROS_TOPIC_LANGUAGE_INSTRUCTION, String, queue_size=1
             )
             self.vision_pub = rospy.Publisher(
-                "/mnet_client/current_vision_instruction", Image, queue_size=1
+                ROS_TOPIC_VISION_INSTRUCTION, Image, queue_size=1
             )
 
         # Start recording

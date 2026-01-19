@@ -31,6 +31,14 @@ try:
         OVERLAY_ENABLED_TASKS,
         AUTONOMOUS_ONLY_TASKS,
         APRILTAG_ENABLED_TASKS,
+        ROS_TOPIC_CONTINUOUS_ASSISTANCE,
+        ROS_TOPIC_DISCRETE_ASSISTANCE,
+        ROS_TOPIC_CONNECTION_STATUS,
+        ROS_TOPIC_ONGOING_TASK,
+        ROS_TOPIC_LANGUAGE_INSTRUCTION,
+        ROS_TOPIC_VISION_INSTRUCTION,
+        ROS_TOPIC_TASK_SKIPPED,
+        ROS_TOPIC_TASK_FINISHED
     )
     from mnet_client.base import (
         PingRequest,
@@ -135,18 +143,18 @@ class SubmissionClient(BaseClient):
 
         # Initialize execution status services
         self.task_finished_service = rospy.Service(
-            "mnet_client/current_task_finished", Trigger, self.handle_task_finished
+            ROS_TOPIC_TASK_FINISHED, Trigger, self.handle_task_finished
         )
         self.task_skipped_service = rospy.Service(
-            "mnet_client/current_task_skipped", Trigger, self.handle_task_skipped
+            ROS_TOPIC_TASK_SKIPPED, Trigger, self.handle_task_skipped
         )
 
         # Initialize connection status publisher
         self.connection_status_pub = rospy.Publisher(
-            "mnet_client/connection_status", Bool, queue_size=10
+            ROS_TOPIC_CONNECTION_STATUS, Bool, queue_size=10
         )
         self.task_status_pub = rospy.Publisher(
-            "mnet_client/ongoing_task", String, queue_size=10
+            ROS_TOPIC_ONGOING_TASK, String, queue_size=10
         )
 
         self.rate = rospy.Rate(100)
@@ -508,12 +516,17 @@ class SubmissionClient(BaseClient):
             )
             exit()
 
+        if self.benchmark_name in ["cable_management"]:
+            self.logger.info("Overwriting ROS topic for cable_management task: 'current_language_instruction' -> 'board_configuration'")
+            global ROS_TOPIC_LANGUAGE_INSTRUCTION
+            ROS_TOPIC_LANGUAGE_INSTRUCTION = "/mnet_client/board_configuration"
+
         if self.instruction_enabled:
             self.language_pub = rospy.Publisher(
-                "/mnet_client/current_language_instruction", String, queue_size=10
+                ROS_TOPIC_LANGUAGE_INSTRUCTION, String, queue_size=10
             )
             self.vision_pub = rospy.Publisher(
-                "/mnet_client/current_vision_instruction", Image, queue_size=10
+                ROS_TOPIC_VISION_INSTRUCTION, Image, queue_size=10
             )
 
             if self.vision_instruction_overlay:
@@ -587,12 +600,12 @@ class SubmissionClient(BaseClient):
                 )
             )
             self.discrete_assistance_service = rospy.Service(
-                "mnet_client/discrete_assistance_update",
+                ROS_TOPIC_DISCRETE_ASSISTANCE,
                 Trigger,
                 self.handle_discrete_assistance,
             )
             self.continuous_assistance_service = rospy.Service(
-                "mnet_client/continuous_assistance_update",
+                ROS_TOPIC_CONTINUOUS_ASSISTANCE,
                 Trigger,
                 self.handle_continuous_assistance,
             )

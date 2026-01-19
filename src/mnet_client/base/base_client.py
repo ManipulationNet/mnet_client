@@ -34,11 +34,20 @@ except ImportError as e:
 PACKAGE_NAME = "mnet_client"
 SERVER_IP = "3.21.8.9"
 SERVER_PORT = 50716
-AVAILABLE_TASKS = ["peg_in_hole", "block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
-INSTRUCTION_ENABLED_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
+AVAILABLE_TASKS = ["peg_in_hole", "block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
+INSTRUCTION_ENABLED_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
 OVERLAY_ENABLED_TASKS = ["grasping_in_clutter", "tabletop_manipulation"]
-AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation"]
+AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
 APRILTAG_ENABLED_TASKS = OVERLAY_ENABLED_TASKS
+
+ROS_TOPIC_LANGUAGE_INSTRUCTION = "/mnet_client/current_language_instruction"
+ROS_TOPIC_VISION_INSTRUCTION = "/mnet_client/current_vision_instruction"
+ROS_TOPIC_TASK_SKIPPED = "/mnet_client/current_task_skipped"
+ROS_TOPIC_TASK_FINISHED = "/mnet_client/current_task_finished"
+ROS_TOPIC_DISCRETE_ASSISTANCE = "/mnet_client/discrete_assistance_update"
+ROS_TOPIC_CONTINUOUS_ASSISTANCE = "/mnet_client/continuous_assistance_update"
+ROS_TOPIC_ONGOING_TASK = "/mnet_client/ongoing_task"
+ROS_TOPIC_CONNECTION_STATUS = "/mnet_client/connection_status"
 
 
 def get_package_path(package_name):
@@ -179,7 +188,7 @@ class BaseClient(ABC):
             self.camera_info_loaded = True
         except TimeoutError as e:
             rospy.logerr(
-                f"{e}, this could affect the execution of the task: grasping_in_clutter"
+                f"{e}, this could affect the execution of the task: {OVERLAY_ENABLED_TASKS}"
             )
         except AssertionError as e:
             rospy.logerr(f"Camera info does not match the image size: {e}")
