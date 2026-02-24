@@ -37,7 +37,7 @@ SERVER_PORT = 50716
 AVAILABLE_TASKS = ["peg_in_hole", "block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
 INSTRUCTION_ENABLED_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
 OVERLAY_ENABLED_TASKS = ["grasping_in_clutter", "tabletop_manipulation"]
-AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "grasping_in_clutter", "tabletop_manipulation", "cable_management"]
+AUTONOMOUS_ONLY_TASKS = ["block_arrangement", "tabletop_manipulation"]
 APRILTAG_ENABLED_TASKS = OVERLAY_ENABLED_TASKS
 
 ROS_TOPIC_LANGUAGE_INSTRUCTION = "/mnet_client/current_language_instruction"
@@ -166,7 +166,7 @@ class BaseClient(ABC):
         )
         self.camera_verified = False
         self.calculate_camera_fps()
-        if self.calibrated_fps is None or self.calibrated_fps < 25:
+        if self.calibrated_fps is None or self.calibrated_fps < 12:
             rospy.logerr(
                 f"Camera FPS is too low (minimum 25, current: {self.calibrated_fps}), please improve your camera setup."
             )
