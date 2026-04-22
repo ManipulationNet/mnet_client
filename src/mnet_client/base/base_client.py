@@ -124,6 +124,7 @@ class BaseClient(ABC):
         self.team_unique_code = self.team_config["team_unique_code"]
         self.camera_topic = self.team_config["camera_image_topic"]
         self.camera_info_topic = self.team_config["camera_info_topic"]
+        self.anonymous_submission = self.team_config["anonymous_submission"]
         self.nvenc_enabled = False
         self.camera_info_loaded = False
 

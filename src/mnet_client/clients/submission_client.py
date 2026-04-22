@@ -99,6 +99,7 @@ class SubmissionClient(BaseClient):
             )
         )
         self.logger.info(f"Team Unique Code: {self.team_unique_code}")
+        self.logger.info(f"Anonymous Submission: {self.anonymous_submission}")
         self.logger.info(
             f"Mode: {'Teleop' if self.autonomy_level==0 else 'Human-in-the-loop' if self.autonomy_level==1 else 'Autonomous'}"
         )
