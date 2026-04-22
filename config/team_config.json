@@ -3,6 +3,7 @@
     "camera_image_topic": "YOUR_CAMERA_IMAGE_TOPIC",
     "camera_info_topic": "YOUR_CAMERAINFO_TOPIC",
     "file_dir": "YOUR_ABSOLUTE_FILE_DIR",
-    "autonomy_level": "INPUT {0, 1, 2} BASED ON YOUR AUTONOMY LEVEL"
+    "autonomy_level": "INPUT {0, 1, 2} BASED ON YOUR AUTONOMY LEVEL",
+    "anonymous_submission": "disable"
 }
   
